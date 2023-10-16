@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
+use yii\data\ActiveDataProvider;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
@@ -173,6 +173,18 @@ class ProductController extends Controller
         $model->path=Null;
         $model->save();
         return $this->redirect(['product/update', 'id' => $id]);
+    }
+
+
+    public function actionShowcase()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find()->where(['=', 'active','1'])->orderBy(['price' => SORT_ASC])->asArray(),
+        ]);
+
+        return $this->render('showcase', [
+            'models' => $dataProvider->models,
+        ]);
     }
 
 }
