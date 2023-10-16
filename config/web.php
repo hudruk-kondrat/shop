@@ -14,6 +14,10 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'cache' => 'cache'
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'jJr-9mhGelo32Y-MFg3rEWp0kWJJarsq',
@@ -44,14 +48,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
+            'baseUrl' => 'http://yiiapp.local', 
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+                // ...
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
