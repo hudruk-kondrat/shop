@@ -11,12 +11,14 @@ use Yii;
  * @property string $name Название
  * @property string|null $path Путь к картинке
  * @property float $price Цена
+ * @property object $image Картинка
  * @property int|null $quantity Количество
  * @property string $description Описание
  * @property bool|null $active Активен
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $image;
     /**
      * {@inheritdoc}
      */
@@ -32,11 +34,13 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'price', 'description'], 'required'],
-            [['price'], 'number'],
+            [['image'], 'file'],
+            [['price'], 'double'],
             [['quantity'], 'default', 'value' => null],
             [['quantity'], 'integer'],
             [['active'], 'boolean'],
             [['name', 'path', 'description'], 'string', 'max' => 255],
+            [['path'],'safe'],
         ];
     }
 
@@ -49,6 +53,7 @@ class Product extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название',
             'path' => 'Путь к картинке',
+            'image' => 'Картинка',
             'price' => 'Цена',
             'quantity' => 'Количество',
             'description' => 'Описание',

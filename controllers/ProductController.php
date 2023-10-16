@@ -7,6 +7,7 @@ use app\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -70,11 +71,22 @@ class ProductController extends Controller
         $model = new Product();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())){
+                $fileName = time();
+                $model->image = UploadedFile::getInstance($model, 'image');
+                if (!empty($model->image)) {
+                    $model->image->saveAs('uploads/obr_' . $fileName . '.' . $model->image->extension);
+                    $model->path = 'uploads/obr_' . $fileName . '.' . $model->image->extension;
+                }
+                if($model->save()) {
+                return $this->redirect(['product/index']);
+                } else {
+                return $this->redirect(['product/create']);
             }
+        
         } else {
             $model->loadDefaultValues();
+        }
         }
 
         return $this->render('create', [
@@ -93,8 +105,23 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())){
+                $fileName = time();
+                $model->image = UploadedFile::getInstance($model, 'image');
+                if (!empty($model->image)) {
+                    $model->image->saveAs('uploads/obr_' . $fileName . '.' . $model->image->extension);
+                    $model->path = 'uploads/obr_' . $fileName . '.' . $model->image->extension;
+                }
+                if($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    return $this->redirect(['update', 'id' => $model->id]);
+            }
+        
+        } else {
+            $model->loadDefaultValues();
+        }
         }
 
         return $this->render('update', [
@@ -111,8 +138,12 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+        $model = $this->findModel($id);
+        if (file_exists($model->path)) {
+            unlink($model->path);
+        }
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 
@@ -131,4 +162,17 @@ class ProductController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    public function actionDelimage($id)
+    {
+        $model = $this->findModel($id);
+        if (file_exists($model->path)) {
+            unlink($model->path);
+        }
+        $model->path=Null;
+        $model->save();
+        return $this->redirect(['product/update', 'id' => $id]);
+    }
+
 }

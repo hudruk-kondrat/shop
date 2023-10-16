@@ -19,10 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
-
-
-
-    <?= Html::a('Обновить', ['user/index'],['class' => 'btn btn-outline-secondary'])?>
+        <?= Html::a('Обновить', ['user/index'],['class' => 'btn btn-outline-secondary'])?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     </p>
     <?= GridView::widget([

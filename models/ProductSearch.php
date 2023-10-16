@@ -19,7 +19,7 @@ class ProductSearch extends Product
         return [
             [['id', 'quantity'], 'integer'],
             [['name', 'path', 'description'], 'safe'],
-            [['price'], 'number'],
+            [['price'], 'double'],
             [['active'], 'boolean'],
         ];
     }

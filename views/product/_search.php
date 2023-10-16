@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\bootstrap5\Modal;
 /** @var yii\web\View $this */
 /** @var app\models\ProductSearch $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -10,30 +10,37 @@ use yii\widgets\ActiveForm;
 
 <div class="product-search">
 
-    <?php $form = ActiveForm::begin([
+    <?php 
+    Modal::begin([
+        'title' => 'Поиск товара',
+        'toggleButton' => [
+            'label' => 'Поиск товара',
+            'class' => 'btn btn-warning',
+            'tag' => 'button',
+        ],
+    ]); $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php // echo $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'path') ?>
+    <?php // echo $form->field($model, 'path') ?>
 
     <?= $form->field($model, 'price') ?>
 
     <?= $form->field($model, 'quantity') ?>
 
-    <?php // echo $form->field($model, 'description') ?>
+    <?= $form->field($model, 'description') ?>
 
-    <?php // echo $form->field($model, 'active')->checkbox() ?>
+    <?= $form->field($model, 'active')->checkbox() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
+    <?php ActiveForm::end(); 
+    Modal::end(); ?>
 </div>

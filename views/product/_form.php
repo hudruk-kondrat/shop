@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +14,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'path')->textInput(['maxlength' => true]) ?>
+    <?php if(!empty($model->path)) {
+            echo Html::a('Удалить', ['product/delimage', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::img(Url::toRoute($model->path),[
+                'style' => 'width:150px;'
+            ]);
+        } else {
+            echo $form->field($model, 'image')->fileInput()->label('Картинка');
+        }
+    ?>
+
+
 
     <?= $form->field($model, 'price')->textInput() ?>
 
@@ -25,7 +35,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'active')->checkbox() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
