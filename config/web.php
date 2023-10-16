@@ -49,7 +49,7 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
-            'baseUrl' => 'http://yiiapp.local', 
+            'baseUrl' => 'http://shop.local', 
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
