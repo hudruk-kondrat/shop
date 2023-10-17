@@ -67,6 +67,8 @@ class PurchaseController extends Controller
      */
     public function actionCreate()
     {
+        print_r($this->request->post());
+        die();
         $model = new Purchase();
 
         if ($this->request->isPost) {

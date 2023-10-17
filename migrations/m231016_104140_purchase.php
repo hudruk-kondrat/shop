@@ -15,6 +15,7 @@ class m231016_104140_purchase extends Migration
         $this->createTable('{{%purchase}}', [
             'id' => $this->primaryKey(),
             'user_id'=>$this->integer()->notNull()->comment('Покупатель'),
+            'order number'=>$this->string()->notNull()->comment('Идентификатор заказа'),
             'bank_response'=>$this->json()->comment('Ответ банка'),
             'customer_choice'=>$this->json()->notNull()->comment('Выбранные товары'),
         ]);
