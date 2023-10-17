@@ -46,7 +46,6 @@ class m231016_104140_purchase extends Migration
             'purchase'
         );
 
-        // drops index for column `author_id`
         $this->dropIndex(
             'idx-user_id',
             'purchase'

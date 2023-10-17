@@ -43,7 +43,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Пользователи', 'url' => ['/user/index'], 'visible'=>Yii::$app->user->can(\app\components\RbacItems::TASK_MANAGEMENT_USER)],
             ['label' => 'Товары', 'url' => ['/product/index'], 'visible'=>Yii::$app->user->can(\app\components\RbacItems::TASK_MANAGEMENT_PRODUCT)],
             ['label' => 'Заказы', 'url' => ['/purchase/index'], 'visible'=>Yii::$app->user->can(\app\components\RbacItems::TASK_VIEW_LOG_ACTION)],
-            ['label' => 'Корзина', 'url' => ['/purchase/index'], 'visible'=>Yii::$app->user->can(\app\components\RbacItems::BUYER_PURCHASE)],
+            ['label' => 'Корзина ('.Yii::$app->user->getCountproduct().')', 'url' => ['/basket/index'], 'visible'=>Yii::$app->user->can(\app\components\RbacItems::BUYER_PURCHASE)],
             Yii::$app->user->isGuest
                 ? ['label' => 'Войти', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

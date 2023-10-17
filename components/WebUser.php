@@ -3,6 +3,7 @@ namespace app\components;
 
 use yii\web\User;
 use app\models\UserIdentification;
+use app\models\Basket;
 use PHPUnit\Framework\MockObject\Builder\Identity;
 
 /**
@@ -28,6 +29,15 @@ public function getId()
 
     return $this->identity->id;
 }
+
+
+public function getCountproduct(){
+    if ($this->isGuest) return null;
+
+    return Basket::find()->where(['user_id' => $this->identity->id])->count();
+
+}
+
 
 
 
