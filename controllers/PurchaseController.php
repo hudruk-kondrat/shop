@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Basket;
 use app\models\Purchase;
 use app\models\PurchaseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\data\ActiveDataProvider;
 /**
  * PurchaseController implements the CRUD actions for Purchase model.
  */
@@ -67,8 +68,6 @@ class PurchaseController extends Controller
      */
     public function actionCreate()
     {
-        print_r($this->request->post());
-        die();
         $model = new Purchase();
 
         if ($this->request->isPost) {
@@ -91,17 +90,29 @@ class PurchaseController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionPay()
     {
-        $model = $this->findModel($id);
+        $model = new Purchase();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => Basket::find()->where(['id' => $this->request->post()['selection']]),
+            ]);
+    
+            return $this->render('form', [
+                'product'=>$dataProvider,
+                'model' => $model,
+            ]);
+            
+            
+            die();
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            return $this->redirect(['site/index']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**

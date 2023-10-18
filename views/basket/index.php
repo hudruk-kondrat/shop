@@ -16,11 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="basket-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-<<<<<<< HEAD
+    <?=Html::beginForm(['purchase/pay'],'post');?>
 
-=======
-    <?=Html::beginForm(['purchase/create'],'post');?>
->>>>>>> 346d447 (Начало возни с эквайрингом)
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'showPageSummary' => true,
@@ -79,11 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-<<<<<<< HEAD
-
-=======
 <?=Html::submitButton('Оплатить', ['class' => 'btn btn-primary']);?>
 <?= Html::endForm();?> 
->>>>>>> 346d447 (Начало возни с эквайрингом)
+
 
 </div>

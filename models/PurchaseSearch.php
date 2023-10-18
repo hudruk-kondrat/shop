@@ -18,7 +18,7 @@ class PurchaseSearch extends Purchase
     {
         return [
             [['id', 'user_id'], 'integer'],
-            [['bank_response', 'customer_choice'], 'safe'],
+            [['bank_response', 'customer_choice','order_number'], 'safe'],
         ];
     }
 
@@ -63,6 +63,7 @@ class PurchaseSearch extends Purchase
         ]);
 
         $query->andFilterWhere(['ilike', 'bank_response', $this->bank_response])
+            ->andFilterWhere(['ilike', 'order_number', $this->order_number])
             ->andFilterWhere(['ilike', 'customer_choice', $this->customer_choice]);
 
         return $dataProvider;

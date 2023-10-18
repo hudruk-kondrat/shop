@@ -3,7 +3,7 @@
         'name' => 'yiisoft/yii2-app-basic',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4273724e20f8ad8d3aa1afd871821fe5843bb10d',
+        'reference' => '9e282515ab4cdd2f0f52376e4fcebf2f0254ef52',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -786,6 +786,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'unclead/yii2-multiple-input' => array(
+            'pretty_version' => '2.27.0',
+            'version' => '2.27.0.0',
+            'reference' => 'c63151f832e7184f8fdf672e9426b0c6159fb2c7',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../unclead/yii2-multiple-input',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'yiisoft/yii2' => array(
             'pretty_version' => '2.0.49.2',
             'version' => '2.0.49.2',
@@ -798,7 +807,7 @@
         'yiisoft/yii2-app-basic' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4273724e20f8ad8d3aa1afd871821fe5843bb10d',
+            'reference' => '9e282515ab4cdd2f0f52376e4fcebf2f0254ef52',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

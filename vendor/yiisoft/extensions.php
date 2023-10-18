@@ -76,4 +76,15 @@ return array (
       '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid/src',
     ),
   ),
+  'unclead/yii2-multiple-input' => 
+  array (
+    'name' => 'unclead/yii2-multiple-input',
+    'version' => '2.27.0.0',
+    'alias' => 
+    array (
+      '@unclead/multipleinput' => $vendorDir . '/unclead/yii2-multiple-input/src',
+      '@unclead/multipleinput/tests' => $vendorDir . '/unclead/yii2-multiple-input/tests',
+      '@unclead/multipleinput/examples' => $vendorDir . '/unclead/yii2-multiple-input/examples',
+    ),
+  ),
 );

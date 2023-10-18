@@ -11,7 +11,7 @@ use Yii;
  * @property int $user_id Покупатель
  * @property string|null $bank_response Ответ банка
  * @property string $customer_choice Выбранные товары
- *
+ * @property string $order_number Идентификатор заказа
  * @property User $user
  */
 class Purchase extends \yii\db\ActiveRecord
@@ -30,8 +30,9 @@ class Purchase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'customer_choice'], 'required'],
+            [['user_id', 'customer_choice','order_number'], 'required'],
             [['user_id'], 'default', 'value' => null],
+            [['order_number'], 'string', 'max' => 255],
             [['user_id'], 'integer'],
             [['bank_response', 'customer_choice'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],

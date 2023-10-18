@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var app\models\Basket $model */
 
 $this->title = 'Добавление заказа: ' . $model->product->name;
-$this->params['breadcrumbs'][] = ['label' => 'Baskets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Корзина', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="basket-create">
