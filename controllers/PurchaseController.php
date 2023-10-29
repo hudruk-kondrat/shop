@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\SberEqaer;
 use app\models\Basket;
 use app\models\Purchase;
 use app\models\PurchaseSearch;
@@ -95,25 +96,40 @@ class PurchaseController extends Controller
         $model = new Purchase();
 
         if ($this->request->isPost) {
-
-            $dataProvider = new ActiveDataProvider([
-                'query' => Basket::find()->where(['id' => $this->request->post()['selection']]),
-            ]);
-    
-            return $this->render('form', [
-                'product'=>$dataProvider,
-                'model' => $model,
-            ]);
-            
-            
-            die();
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if(isset($this->request->post()['selection'])) {
+                $dataProvider = new ActiveDataProvider([
+                    'query' => Basket::find()->where(['id' => $this->request->post()['selection']]),
+                ]);
+        
+                return $this->render('form', [
+                    'product'=>$dataProvider,
+                    'model' => $model,
+                    'selection' => $this->request->post()['selection'],
+                    'summ'=> Basket::getSumm($this->request->post()['selection']),
+                ]);
             }
-        } else {
-            return $this->redirect(['site/index']);
+
         }
+
+            return $this->redirect(['basket/index']);
     }
+
+
+    public function actionFinish()
+    {
+        $model = new Purchase();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $model->bank_response=json_encode(SberEqaer::getPay($model->order_number, $model->amount));
+                if($model->save()) {
+                    return $this->redirect(['purchase/index']);
+                }
+                }
+            } 
+            return $this->redirect(['basket/index']);
+    }
+
 
     /**
      * Deletes an existing Purchase model.

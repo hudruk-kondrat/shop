@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use yii\data\ActiveDataProvider;
 use Yii;
 
 /**
@@ -73,6 +73,18 @@ class Basket extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+
+    public static function getSumm($array){
+        $summ=0;
+        $products = new ActiveDataProvider([
+            'query' => Basket::find()->where(['id' => $array]),
+        ]);
+        foreach ($products->models as $product) {
+            $summ+=$product->product->price*$product->count;
+        }
+        return $summ;
     }
 
 

@@ -16,6 +16,9 @@ use Yii;
  */
 class Purchase extends \yii\db\ActiveRecord
 {
+
+    public $amount;
+    
     /**
      * {@inheritdoc}
      */
@@ -34,7 +37,7 @@ class Purchase extends \yii\db\ActiveRecord
             [['user_id'], 'default', 'value' => null],
             [['order_number'], 'string', 'max' => 255],
             [['user_id'], 'integer'],
-            [['bank_response', 'customer_choice'], 'safe'],
+            [['bank_response', 'customer_choice','amount'], 'safe'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

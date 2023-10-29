@@ -20,7 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="purchase-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['action' => ['purchase/finish'],'options' => ['method' => 'post']]); ?>
+    <?= $form->field($model, 'amount')->hiddenInput(['value'=> $summ])->label(false) ?>
+    <?= $form->field($model, 'customer_choice')->hiddenInput(['value'=> json_encode($selection)])->label(false) ?>
     <b>Идентификатор заказа: </b><?='order_'.\Yii::$app->user->id.'_'.time();?></br>
     <?= $form->field($model, 'order_number')->hiddenInput(['value'=> 'order_'.\Yii::$app->user->id.'_'.time()])->label(false) ?>
     <b>Покупатель: </b><?=\Yii::$app->user->getFio();?></br>
