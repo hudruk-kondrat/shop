@@ -45,8 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end(); ?>
 
+
             <div style="color:#999;">
                 Демо-доступ <strong>admin/admin</strong> or <strong>user/user</strong>.<br>
+            </div>
+
+            <div>
+                <?= Html::a('Регистрация', ['user/register'], ['class' => 'btn btn-success']) ?>
             </div>
 
         </div>

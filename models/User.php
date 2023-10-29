@@ -20,6 +20,8 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+    public $password_repeat;
+
     /**
      * {@inheritdoc}
      */
@@ -37,6 +39,8 @@ class User extends \yii\db\ActiveRecord
             [['login', 'password', 'firstname', 'patronymic', 'lastname'], 'required'],
             [['lastvisit'], 'safe'],
             [['login', 'password', 'firstname', 'patronymic', 'lastname', 'role'], 'string', 'max' => 255],
+            [['password_repeat'], 'compare', 'compareAttribute'=>'password', 'message'=>"Пароли не совпадают!"],
+            [['login'], 'checkUniqueLogin']
         ];
     }
 
@@ -49,6 +53,7 @@ class User extends \yii\db\ActiveRecord
             'id' => 'ID',
             'login' => 'Логин',
             'password' => 'Пароль',
+            'password_repeat' => 'Пароль (повторно)',
             'firstname' => 'Имя',
             'patronymic' => 'Отчество',
             'lastname' => 'Фамилия',
@@ -110,4 +115,19 @@ class User extends \yii\db\ActiveRecord
         }
         return parent::beforeSave($insert);
     }
+
+
+    public function checkUniqueLogin($attribute, $params)
+    {
+            $login = User::find()->where(['login'=> $this->login])->one();
+            if ($login)
+             {
+                $this->addError($attribute, 'Логин уже занят!');
+                return false;
+            }
+        
+    }
+
+
+
 }

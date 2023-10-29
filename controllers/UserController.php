@@ -102,6 +102,30 @@ class UserController extends Controller
         ]);
     }
 
+    public function actionRegister()
+    {
+        $model = new User();
+
+        if ($this->request->isPost){
+            if($model->load($this->request->post()))
+            {
+                if ($model->validate()) 
+                {
+                   $model->role='buyer';
+                   if($model->save()) {
+                        return $this->redirect(['site/login']);
+                   }
+                }
+            }
+        }
+
+        return $this->render('register',[
+            'model' => $model,
+        ]);
+    }
+
+
+
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
