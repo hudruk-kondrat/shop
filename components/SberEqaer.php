@@ -14,7 +14,7 @@ class SberEqaer
 
   const RETURN_URL = 'managementUser'; //Адрес, на который требуется перенаправить пользователя в случае успешной оплаты, а также в случае неуспешной оплаты (при отсутствии переданного параметра failUrl).
 
-  public $orderStatus = array(
+  public static $orderStatus = array(
 	0 => 'Заказ зарегистрирован, но не оплачен',
 	1 => 'Предавторизованная сумма захолдирована (для двухстадийных платежей)',
 	2 => 'Проведена полная авторизация суммы заказа',
@@ -41,7 +41,12 @@ class SberEqaer
     $result = curl_exec($procces);
     curl_close($procces);
     $result = json_decode($result, JSON_OBJECT_AS_ARRAY);
-    return $result;						
+    if (empty($result['orderId'])){
+      return $result;								
+    } else {
+      return  \Yii::$app->controller->redirect($result['formUrl']);
+    }
+    			
   }
 
   //расшифровка статуса 

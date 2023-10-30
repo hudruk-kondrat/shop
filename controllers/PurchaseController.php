@@ -104,7 +104,8 @@ class PurchaseController extends Controller
                 return $this->render('form', [
                     'product'=>$dataProvider,
                     'model' => $model,
-                    'selection' => Basket::getCustomerChoice($this->request->post()['selection']),
+                    'selection' => $this->request->post()['selection'],
+                    'customer_choice' => Basket::getCustomerChoice($this->request->post()['selection']),
                     'summ'=> Basket::getSumm($this->request->post()['selection']),
                 ]);
             }
@@ -123,8 +124,9 @@ class PurchaseController extends Controller
             if ($model->load($this->request->post())) {
                 $model->bank_response=json_encode(SberEqaer::getPay($model->order_number, $model->amount));
                 if($model->save()) {
-
-                    return $this->redirect(['purchase/index']);
+                    $basket = new Basket();
+                    $basket->deleteAll(['id' => json_decode($this->request->post()['selection'])]);
+                    return $this->redirect(['basket/index']);
                 }
                 }
             } 

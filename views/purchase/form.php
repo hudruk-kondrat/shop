@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(['action' => ['purchase/finish'],'options' => ['method' => 'post']]); ?>
     <?= $form->field($model, 'amount')->hiddenInput(['value'=> $summ])->label(false) ?>
-    <?= $form->field($model, 'customer_choice')->hiddenInput(['value'=> json_encode($selection)])->label(false) ?>
+    <?= Html::hiddenInput('selection', json_encode($selection)); ?>
+    <?= $form->field($model, 'customer_choice')->hiddenInput(['value'=> json_encode($customer_choice)])->label(false) ?>
     <b>Идентификатор заказа: </b><?='order_'.\Yii::$app->user->id.'_'.time();?></br>
     <?= $form->field($model, 'order_number')->hiddenInput(['value'=> 'order_'.\Yii::$app->user->id.'_'.time()])->label(false) ?>
     <b>Покупатель: </b><?=\Yii::$app->user->getFio();?></br>

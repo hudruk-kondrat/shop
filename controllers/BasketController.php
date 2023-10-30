@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Basket;
+use app\models\Purchase;
 use app\models\BasketSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -43,8 +44,15 @@ class BasketController extends Controller
             'sort' => false,
         ]);
 
+
+        $dataProviderPurchase = new ActiveDataProvider([
+            'query' => Purchase::find()->where(['=', 'user_id', \Yii::$app->user->id]),
+            'sort' => false,
+        ]);
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'dataProviderPurchase' => $dataProviderPurchase,
         ]);
     }
 

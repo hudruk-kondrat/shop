@@ -99,6 +99,7 @@ class Basket extends \yii\db\ActiveRecord
                         'price'=> $product->product->price,
                     ];
         }
+        
         return $result;
     }
 

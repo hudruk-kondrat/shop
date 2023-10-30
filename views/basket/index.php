@@ -1,5 +1,7 @@
 <?php
 
+use app\components\SberEqaer;
+use app\models\Purchase;
 use app\models\Basket;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -79,5 +81,30 @@ $this->params['breadcrumbs'][] = $this->title;
 <?=Html::submitButton('Оплатить', ['class' => 'btn btn-primary']);?>
 <?= Html::endForm();?> 
 
+<h1>Покупки</h1>
 
+
+<?= GridView::widget([
+        'dataProvider' => $dataProviderPurchase,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute'=>'bank_response',
+                'label'=>'Ответ банка',
+                'content'=>function($data){
+                    return SberEqaer::statusResult(json_decode($data->bank_response, true)['errorCode']);
+                }
+            ],
+            [
+                'attribute'=>'customer_choice',
+                'label'=>'Выбранные товары',
+                'content'=>function($data){
+                        return Html::ul(json_decode($data->customer_choice, true), ['item' => function ($item) {
+                            return Html::tag('li', '<b>Название:</b> '.$item['name'].';<br /> <b>Цена:</b> '.$item['count'].'<b>Р</b>;<br />  <b>Количество:</b> '.$item['count']);
+                    }]);
+                }
+            ],
+           
+        ],
+    ]); ?>
 </div>
