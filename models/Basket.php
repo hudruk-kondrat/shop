@@ -87,5 +87,21 @@ class Basket extends \yii\db\ActiveRecord
         return $summ;
     }
 
+    public static function getCustomerChoice($array){
+        $result = array();
+        $products = new ActiveDataProvider([
+            'query' => Basket::find()->where(['id' => $array]),
+        ]);
+        foreach ($products->models as $product) {
+            $result[]=['id'=> $product->product->id,
+                        'name'=> $product->product->name,
+                        'count'=> $product->count,
+                        'price'=> $product->product->price,
+                    ];
+        }
+        return $result;
+    }
+
+
 
 }

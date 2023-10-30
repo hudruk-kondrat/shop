@@ -104,7 +104,7 @@ class PurchaseController extends Controller
                 return $this->render('form', [
                     'product'=>$dataProvider,
                     'model' => $model,
-                    'selection' => $this->request->post()['selection'],
+                    'selection' => Basket::getCustomerChoice($this->request->post()['selection']),
                     'summ'=> Basket::getSumm($this->request->post()['selection']),
                 ]);
             }
@@ -123,6 +123,7 @@ class PurchaseController extends Controller
             if ($model->load($this->request->post())) {
                 $model->bank_response=json_encode(SberEqaer::getPay($model->order_number, $model->amount));
                 if($model->save()) {
+
                     return $this->redirect(['purchase/index']);
                 }
                 }
